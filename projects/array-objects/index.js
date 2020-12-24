@@ -93,11 +93,13 @@ const testConvert = {
 
 function upperProps(obj) {
   const nameKeys = [];
+
   for (const item in obj) {
     nameKeys.push(item.toUpperCase());
   }
   return nameKeys;
 }
+
 const newArray = upperProps(testConvert);
 console.log(newArray);
 
