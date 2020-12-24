@@ -9,8 +9,15 @@
  Пример:
    forEach([1, 2, 3], (el) => console.log(el))
  */
-function forEach(array, fn) {
+function callback(val, index, array) {
+  console.log('индекс - ' + index + ', элемент - ' + array[index]);
 }
+function forEach(array, fn) {
+  for (let i = 0; i < array.length; i++) {
+    fn(array[i], i, array);
+  }
+}
+forEach([1, 2, 3], callback);
 
 /*
  Задание 2:
