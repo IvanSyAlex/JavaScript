@@ -16,7 +16,22 @@
    isAllTrue([1, 2, 3, 4, 5], n => n < 10) // вернет true
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
-function isAllTrue(array, fn) {}
+function isAllTrue(array, fn) {
+  let bolean = true;
+  if (!Array.isArray(array) || !array.length) {
+    throw new Error('empty array');
+  }
+  if (!(typeof fn === 'function')) {
+    throw new Error('fn is not a function');
+  }
+  for (let i = 0; i < array.length; i++) {
+    if (!fn(array[i])) {
+      bolean = false;
+    }
+  }
+  return bolean;
+}
+isAllTrue([1, 2, 3], (n) => n < 10);
 
 /*
  Задание 2:
