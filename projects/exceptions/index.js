@@ -18,7 +18,7 @@
  */
 function isAllTrue(array, fn) {
   let bolean = true;
-  if (!Array.isArray(array) || !array.length) {
+  if (!(Object.prototype.toString.call(array) === '[object Array]') || !array.length) {
     throw new Error('empty array');
   }
   if (!(typeof fn === 'function')) {
@@ -51,7 +51,7 @@ isAllTrue([1, 2, 3], (n) => n < 10);
  */
 function isSomeTrue(array, fn) {
   let bolean = false;
-  if (!Array.isArray(array) || !array.length) {
+  if (!(array instanceof Array) || !array.length) {
     throw new Error('empty array');
   }
   if (!(typeof fn === 'function')) {
