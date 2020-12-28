@@ -77,7 +77,21 @@ isSomeTrue([1, 2, 30, 4, 5], (n) => n > 10);
  3.3: Необходимо выбрасывать исключение в случаях:
    - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn, ...args) {}
+function returnBadArguments(fn, ...args) {
+  if (!(typeof fn === 'function')) {
+    throw new Error('fn is not a function');
+  }
+  const array = [];
+  for (let i = 0; i < args.length; i++) {
+    try {
+      !fn(args[i]);
+    } catch {
+      array.push(args[i]);
+    }
+  }
+  return array;
+}
+returnBadArguments((n) => n > 10, 1, 2, 30, 4, 5);
 
 /*
  Задание 4:
