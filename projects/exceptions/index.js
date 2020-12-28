@@ -110,7 +110,53 @@ returnBadArguments((n) => n > 10, 1, 2, 30, 4, 5);
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator(number = 0) {}
+function calculator(number = 0, args = 0) {
+  if (!(typeof number === 'number')) {
+    throw new Error('number is not a number');
+  }
+  const obj = {
+    number: number,
+
+    sum: (...args) => {
+      let sum = number;
+      for (const i of args) {
+        sum += i;
+      }
+      return sum;
+    },
+
+    dif: (...args) => {
+      let dif = number;
+      for (const i of args) {
+        dif -= i;
+      }
+      return dif;
+    },
+
+    div: (...args) => {
+      let div = number;
+      for (const i of args) {
+        if (i === 0) {
+          throw new Error('division by 0');
+        }
+        div = div / i;
+      }
+      return div;
+    },
+
+    mul: (...args) => {
+      let mul = number;
+      for (const i of args) {
+        mul = mul * i;
+      }
+      return mul;
+    },
+  };
+
+  return obj;
+}
+
+// let object = calculator(45,1,6,9,8);
 
 /* При решении задач, постарайтесь использовать отладчик */
 
