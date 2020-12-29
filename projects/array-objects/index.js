@@ -53,28 +53,22 @@ console.log(nArray);
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
 
-function callBackReduce(previousValue, currentValue, index, array) {
-  return previousValue + currentValue;
-}
 function reduce(array, fn, initial) {
   let summ;
+  let i;
 
   if (typeof initial === 'number' && !isNaN(initial)) {
     summ = initial;
-    for (let i = 0; i < array.length; i++) {
-      summ = fn(summ, array[i], i, array);
-    }
+    i = 0;
   } else {
     summ = array[0];
-    for (let i = 1; i < array.length; i++) {
-      summ = fn(summ, array[i], i, array);
-    }
+    i = 1;
+  }
+  for (i; i < array.length; i++) {
+    summ = fn(summ, array[i], i, array);
   }
   return summ;
 }
-
-const rez = reduce([1, 2, 3], callBackReduce);
-console.log(rez);
 
 /*
  Задание 4:
@@ -85,12 +79,6 @@ console.log(rez);
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
 
-const testConvert = {
-  page1: 'Первая страница',
-  page2: 'Вторая страница',
-  page3: 'Третья страница',
-};
-
 function upperProps(obj) {
   const nameKeys = [];
 
@@ -99,9 +87,6 @@ function upperProps(obj) {
   }
   return nameKeys;
 }
-
-const newArray = upperProps(testConvert);
-console.log(newArray);
 
 /*
  Задание 5 *:
