@@ -10,7 +10,11 @@
  Пример:
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
-function createDivWithText(text) {}
+function createDivWithText(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  document.body.appendChild(div);
+}
 
 /*
  Задание 2:
