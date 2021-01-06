@@ -13,7 +13,7 @@
 function createDivWithText(text) {
   const div = document.createElement('div');
   div.textContent = text;
-  document.body.appendChild(div);
+  return document.body.appendChild(div);
 }
 
 /*
