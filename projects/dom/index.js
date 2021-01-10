@@ -158,7 +158,39 @@ function deleteTextNodesRecursive(where) {
      texts: 3
    }
  */
-function collectDOMStat(root) {}
+function collectDOMStat(root) {
+  const objScan = {
+    tags: {},
+    classes: {},
+    texts: 0,
+  };
+
+  function scan(colection) {
+    for (const element of colection.childNodes) {
+      if (element.nodeType === 3) {
+        objScan.texts += 1;
+      } else {
+        if (element.tagName in objScan.tags) {
+          objScan.tags[element.tagName]++;
+        } else {
+          objScan.tags[element.tagName] = 1;
+        }
+
+        for (const name of element.classList) {
+          if (name in objScan.classes) {
+            objScan.classes[name]++;
+          } else {
+            objScan.classes[name] = 1;
+          }
+        }
+      }
+      scan(element);
+    }
+  }
+  scan(root);
+
+  return objScan;
+}
 
 /*
  Задание 8 *:
