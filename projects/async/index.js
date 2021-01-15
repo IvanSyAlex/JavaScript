@@ -109,9 +109,5 @@ retryButton.addEventListener('click', () => {
 filterInput.addEventListener('input', function (e) {
   filter(e.target.value);
 });
-filterBlock.classList.add('hidden');
-
-loadingFailedBlock.classList.add('hidden');
-filterBlock.classList.add('hidden');
 
 export { loadTowns, isMatching };
