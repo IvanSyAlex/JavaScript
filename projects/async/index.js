@@ -96,6 +96,7 @@ function filter(valueInput) {
     if (isMatching(city.name, valueInput)) {
       const newElement = document.createElement('div');
       newElement.textContent = city.name;
+
       fragment.append(newElement);
     }
   }
@@ -109,5 +110,7 @@ retryButton.addEventListener('click', () => {
 filterInput.addEventListener('input', function (e) {
   filter(e.target.value);
 });
+
+filterBlock.classList.add('hidden');
 
 export { loadTowns, isMatching };
