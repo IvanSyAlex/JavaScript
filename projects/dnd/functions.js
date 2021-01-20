@@ -79,13 +79,12 @@ function delegate(target, fn) {
    который вызовется только один раз и затем удалится
  */
 function once(target, fn) {
-  target.addEventListener(
-    'click',
-    () => {
-      fn();
-    },
-    { once: true }
-  );
+  function delEvent() {
+    fn();
+    target.removeEventListener('click', delEvent);
+  }
+
+  target.addEventListener('click', delEvent);
 }
 
 export { addListener, removeListener, skipDefault, emulateClick, delegate, once };
