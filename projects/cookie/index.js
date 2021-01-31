@@ -49,46 +49,70 @@ function rowTable(name = '', value = '') {
   //создаём строку для таблицы и заполняем её
   const row = document.createElement('TR');
   const tdName = document.createElement('TD');
-  tdName.innerHTML = name;
   const tdVAlue = document.createElement('TD');
+  const tdButton = document.createElement('TD');
+  const button = document.createElement('BUTTON');
+  tdName.innerHTML = name;
   tdVAlue.innerHTML = value;
+  button.innerHTML = 'удалить';
+  button.dataset.role = 'delete-cookie';
+  button.dataset.name = name;
+
+  tdButton.appendChild(button);
   row.appendChild(tdName);
   row.appendChild(tdVAlue);
+  row.appendChild(tdButton);
   listTable.appendChild(row);
 }
 
 function createObjectCookie() {
   //создаём  объект
   const arrCookie = document.cookie.split(';');
-  if (arrCookie !== undefined) {
-    const objectCookie = arrCookie.reduce((rowObj, current) => {
-      const [name, value] = current.split('=');
-      return (rowObj[name] = value);
-    });
-    return objectCookie;
-  } else {
-    return false;
-  }
+  return arrCookie.reduce((obj, current) => {
+    const [name, value] = current.split('=');
+    if (name !== '') {
+      obj[name] = value;
+      return obj;
+    }
+  }, {});
 }
-function add() {
+
+function add(valueFilter = '') {
   const obj = createObjectCookie();
-  if (!obj) {
+  if (obj && valueFilter === '') {
     for (const [name, value] of Object.entries(obj)) {
       rowTable(name, value);
     }
-  } else {
-    return;
+  } else if (obj && valueFilter !== '') {
+    for (const [name, value] of Object.entries(obj)) {
+      if (value.indexOf(valueFilter) >= 0 || name.indexOf(valueFilter) >= 0) {
+        rowTable(name, value);
+      } else {
+        continue;
+      }
+    }
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   add();
 });
-filterNameInput.addEventListener('input', function () {});
+
+filterNameInput.addEventListener('input', function () {
+  listTable.innerHTML = '';
+  add(filterNameInput.value.toLowerCase());
+});
 
 addButton.addEventListener('click', () => {
   document.cookie = `${addNameInput.value}=${addValueInput.value}`;
-  add();
+  listTable.innerHTML = '';
+  add(filterNameInput.value.toLowerCase());
 });
 
-listTable.addEventListener('click', (e) => {});
+listTable.addEventListener('click', (e) => {
+  if (e.target.dataset.role === 'delete-cookie') {
+    document.cookie = `${e.target.dataset.name}=delete; max-age=0`;
+    listTable.innerHTML = '';
+    add(filterNameInput.value.toLowerCase());
+  }
+});
